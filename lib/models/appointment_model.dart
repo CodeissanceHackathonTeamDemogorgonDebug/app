@@ -2,7 +2,7 @@ class Appointment {
   final String patientuid;
   final String doctoruid;
   final DateTime date;
-  final bool isAccepted;
+  final String status;
   final DateTime? time;
   final String? fcmToken;
   final String appointmentType;
@@ -10,7 +10,7 @@ class Appointment {
       {required this.patientuid,
       required this.doctoruid,
       required this.date,
-      required this.isAccepted,
+      required this.status,
         required this.appointmentType,
       this.time,
       this.fcmToken});
@@ -19,7 +19,7 @@ class Appointment {
       patientuid: map['patientuid'] ?? '',
       doctoruid: map['doctoruid'] ?? '',
       date: map['date'].toDate(),
-      isAccepted: map['isAccepted'] ?? false,
+      status: map['isAccepted'] ?? false,
       fcmToken: map['fcmToken'],
       time: map['time']?.toDate(),
       appointmentType: map['appointmentType'] ?? '',
@@ -30,7 +30,7 @@ class Appointment {
       'patientuid': patientuid,
       'doctoruid': doctoruid,
       'date': date,
-      'isAccepted': isAccepted,
+      'status': status,
       'fcmToken': fcmToken,
       'time': time,
       'appointmentType': appointmentType,

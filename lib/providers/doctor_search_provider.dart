@@ -34,6 +34,17 @@ final doctorSearchProvider = FutureProvider.family<List<Doctor>, String>((ref, s
   return doctors;
 });
 
+final getDoctorByUidProvider = FutureProvider.family<Doctor, String>((ref, uid) async {
+  final firestore = ref.watch(firebaseFirestoreProvider);
+
+  final querySnapshot = await firestore.collection('Caretakers')
+      .where('uid', isEqualTo: uid)
+      .get();
+
+  final doctor = querySnapshot.docs.map((doc) => Doctor.fromMap(doc.data())).first;
+  return doctor;
+});
+
 // Doctor model
 class Doctor {
   final String uid;

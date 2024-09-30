@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hackathon_app/models/appointment_model.dart';
+import 'package:hackathon_app/providers/doctor_search_provider.dart';
 
-class AppointmentCard extends StatelessWidget {
-  const AppointmentCard({super.key});
+class AppointmentCard extends ConsumerWidget {
+  final Appointment appointment;
+  const AppointmentCard({super.key, required this.appointment});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final doctor = ref.watch(getDoctorByUidProvider(appointment.doctoruid)).value ?? Doctor(
+      uid: '',
+      name: '',
+      address: '',
+      experienceYears: '',
+    );
     return SizedBox(
       width: double.infinity,
       child: Card(
@@ -13,14 +23,14 @@ class AppointmentCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Dr. John Doe',
+               Text(
+                doctor.name,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              const Text('Dermatologist'),
+               Text(doctor.address),
               const SizedBox(height: 10),
-              const Text('12:00 PM - 1:00 PM'),
+              Text(appointment.date.toIso8601String()),
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () {},

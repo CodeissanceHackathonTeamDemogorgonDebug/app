@@ -19,7 +19,7 @@ class CreateAppointment extends ConsumerWidget {
   }
 
   void submitForm(WidgetRef ref){
-    Appointment ap1 = Appointment(patientuid: FirebaseAuth.instance.currentUser!.uid, doctoruid: doctor.uid, date: date, isAccepted: false, appointmentType: appType, fcmToken: fcmToken);
+    Appointment ap1 = Appointment(patientuid: FirebaseAuth.instance.currentUser!.uid, doctoruid: doctor.uid, date: date, status: '', appointmentType: appType, fcmToken: fcmToken);
     ref.read(requestAppointmentProvider(ap1));
   }
   @override
