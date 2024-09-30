@@ -8,16 +8,18 @@ class Patient {
   final int phoneNumber;
   final String email;
   final String? bloodGroup;
-  final List<String?> allergies;
-  final List<String?> medications;
+  final List<String?>? allergies;
+  final List<String?>? medications;
   final int? emergencyContact;
   final bool isSmoker;
   final double height;
   final double weight;
+  final String? fcmToken;
 
 
   Patient({required this.uid, required this.name, required this.age, required this.userType, this.profilePic, required this.gender
-  , required this.phoneNumber, required this.email, this.bloodGroup, required this.allergies, required this.medications, this.emergencyContact, required this.isSmoker, required this.height, required this.weight});
+  , required this.phoneNumber, required this.email, this.bloodGroup, this.allergies, this.medications, this.emergencyContact, required this.isSmoker, required this.height, required this.weight
+  , this.fcmToken});
 
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
@@ -36,6 +38,7 @@ class Patient {
       isSmoker: json['isSmoker'],
       height: json['height'],
       weight: json['weight'],
+      fcmToken: json['fcmToken'],
     );
   }
 
@@ -56,6 +59,7 @@ class Patient {
       'isSmoker': isSmoker,
       'height': height,
       'weight': weight,
+      'fcmToken': fcmToken,
     };
   }
 }

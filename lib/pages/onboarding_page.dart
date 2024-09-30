@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hackathon_app/main.dart';
 import 'package:hackathon_app/models/patient_model.dart';
 import 'package:hackathon_app/pages/home_screen.dart';
 import 'package:hackathon_app/providers/patient_providers.dart';
@@ -12,19 +13,17 @@ class OnboardingPage extends ConsumerWidget {
   final TextEditingController emergencyContactController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController bloodGroupController = TextEditingController();
   final TextEditingController allergiesController = TextEditingController();
   final TextEditingController medicationsController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
-  final TextEditingController isSmokerController = TextEditingController();
   String gender = '';
   String bloodGroup = '';
   bool isSmoker = false;
 
-  void submitForm(WidgetRef ref) {
+  void submitForm(WidgetRef ref, BuildContext context) {
     //submit form
     Patient patient = Patient(
       uid: FirebaseAuth.instance.currentUser!.uid,
@@ -41,8 +40,14 @@ class OnboardingPage extends ConsumerWidget {
       emergencyContact: int.parse(emergencyContactController.text),
       height: double.parse(heightController.text),
       weight: double.parse(weightController.text),
+      fcmToken: fcmToken,
     );
     ref.read(addPatientProvider(patient));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
+    );
 
   }
 
@@ -164,12 +169,7 @@ class OnboardingPage extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {
                   //submit form
-                  submitForm(ref);
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ),
-                  );
+                  submitForm(ref, context);
                 },
                 child: const Text('Submit'),
               ),

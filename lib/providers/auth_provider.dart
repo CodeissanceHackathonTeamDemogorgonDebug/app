@@ -46,16 +46,16 @@ class AuthClass {
           final firestore = _ref.read(firebaseFirestoreProvider);
           final userDoc = await firestore.collection('Users').doc(user.uid).get();
 
-          if (!userDoc.exists) {
-            // Create a new document for the user
-            await firestore.collection('Patients').doc(user.uid).set({
-              'uid': user.uid,
-              'name': user.displayName,
-              'email': user.email,
-              'createdAt': FieldValue.serverTimestamp(),
-              'profilePic': user.photoURL,
-            });
-          }
+          // if (!userDoc.exists) {
+          //   // Create a new document for the user
+          //   await firestore.collection('Patients').doc(user.uid).set({
+          //     'uid': user.uid,
+          //     'name': user.displayName,
+          //     'email': user.email,
+          //     'createdAt': FieldValue.serverTimestamp(),
+          //     'profilePic': user.photoURL,
+          //   });
+          // }
 
           return right(user);
         } else {
