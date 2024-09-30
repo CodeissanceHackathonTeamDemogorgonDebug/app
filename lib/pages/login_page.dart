@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hackathon_app/pages/home_screen.dart';
+import 'package:hackathon_app/pages/onboarding_page.dart';
 import 'package:hackathon_app/providers/auth_provider.dart';
+import 'package:hackathon_app/providers/patient_providers.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 class Loginpage extends ConsumerWidget {
@@ -28,11 +30,20 @@ class Loginpage extends ConsumerWidget {
                 authState.maybeWhen(
                   authenticated: (user) {
                     // Navigate to home page if successfully authenticated
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    );
+                    if (!ref.watch(patientProvider(user.uid)).hasValue) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => OnboardingPage(),
+                        ),
+                      );
+                    }
+                    else{
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
+                    }
                   },
                   orElse: () {
                     // Optionally handle other states or show an error message
