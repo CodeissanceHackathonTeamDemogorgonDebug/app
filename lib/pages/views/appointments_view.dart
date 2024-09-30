@@ -35,15 +35,6 @@ class AppointmentsView extends ConsumerWidget {
                 children: appointments.map((appointment) => AppointmentCard(appointment: appointment)).toList(),
               ),
             const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.access_time),
-              label: const Text('Book an appointment'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-            ),
           ],
         ),
       ),

@@ -25,22 +25,13 @@ class AppointmentCard extends ConsumerWidget {
             children: [
                Text(
                 doctor.name,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
                Text(doctor.address),
               const SizedBox(height: 10),
               Text(appointment.date.toIso8601String()),
               const SizedBox(height: 10),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.cancel),
-                label: const Text('Cancel appointment'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 16),
-                ),
-              ),
             ],
           ),
         ),
