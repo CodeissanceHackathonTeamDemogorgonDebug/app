@@ -10,7 +10,7 @@ class Patient {
   final String? bloodGroup;
   final List<String?>? allergies;
   final List<String?>? medications;
-  final int? emergencyContact;
+  final String? emergencyContact;
   final bool isSmoker;
   final double height;
   final double weight;

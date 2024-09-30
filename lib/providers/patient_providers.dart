@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hackathon_app/models/patient_model.dart';
 
@@ -35,3 +36,7 @@ final patientProvider = FutureProvider.family<Patient?, String>((ref, uid) async
   final dataSource = ref.read(firestoreDataSourceProvider);
   return await dataSource.getPatient(uid);
 });
+
+void setSteps(int steps){
+  FirebaseFirestore.instance.collection('steps').doc(FirebaseAuth.instance.currentUser!.uid).set({'steps': steps});
+}

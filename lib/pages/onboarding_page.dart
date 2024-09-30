@@ -37,7 +37,7 @@ class OnboardingPage extends ConsumerWidget {
       email: FirebaseAuth.instance.currentUser!.email!,
       allergies: allergiesController.text.split(','),
       medications: medicationsController.text.split(','),
-      emergencyContact: int.parse(emergencyContactController.text),
+      emergencyContact: emergencyContactController.text,
       height: double.parse(heightController.text),
       weight: double.parse(weightController.text),
       fcmToken: fcmToken,
