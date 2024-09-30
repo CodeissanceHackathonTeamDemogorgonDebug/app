@@ -27,7 +27,7 @@ class DoctorCard extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateAppointment()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateAppointment(doctor: doctor,)));
                 },
                 icon: const Icon(Icons.add),
                 label: const Text('Book appointment'),

@@ -1,14 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_plus/date_picker_plus.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hackathon_app/models/appointment_model.dart';
+import 'package:hackathon_app/providers/appointment_provider.dart';
+import 'package:hackathon_app/providers/doctor_search_provider.dart';
 
-class CreateAppointment extends StatelessWidget {
-  const CreateAppointment({super.key});
-
-  void selectedDate(DateTime date) {
+class CreateAppointment extends ConsumerWidget {
+  final Doctor doctor;
+   CreateAppointment({super.key, required this.doctor});
+  final TextEditingController _reasonController = TextEditingController();
+  DateTime date = DateTime.now();
+  String appType = '';
+  void selectedDate(DateTime date1) {
     print(date);
+    date = date1;
+  }
+
+  void submitForm(WidgetRef ref){
+    Appointment ap1 = Appointment(patientuid: FirebaseAuth.instance.currentUser!.uid, doctoruid: doctor.uid, date: date, isAccepted: false, appointmentType: appType);
+    ref.read(requestAppointmentProvider(ap1));
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create an appointment'),
@@ -43,7 +57,7 @@ class CreateAppointment extends StatelessWidget {
                   DropdownMenuItem(child: Text('Online Consultation'), value: 'Online'),
                 ],
                 onChanged: (value) {
-                  print(value);
+                  appType = value!;
                 },
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -59,13 +73,17 @@ class CreateAppointment extends StatelessWidget {
                   border: OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 ),
+                controller: _reasonController,
               ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      submitForm(ref);
+                      Navigator.of(context).pop();
+                    },
                     icon: const Icon(Icons.save),
                     label: const Text('Book appointment'),
                     style: ElevatedButton.styleFrom(
