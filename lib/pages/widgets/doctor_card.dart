@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_app/pages/create_appointment.dart';
+import 'package:hackathon_app/providers/doctor_search_provider.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({super.key});
+  final Doctor doctor;
+  const DoctorCard({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +16,14 @@ class DoctorCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Dr. John Doe',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+               Text(
+                doctor.name,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              const Text('Dermatologist'),
-              const SizedBox(height: 10),
-              const Text('12:00 PM - 1:00 PM'),
+               // Text(doctor.specialties?.first ?? ''),
+              // const SizedBox(height: 10),
+              Text(doctor.experienceYears.toString()),
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () {
