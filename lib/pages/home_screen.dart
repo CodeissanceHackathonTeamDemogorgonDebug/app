@@ -1,17 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hackathon_app/models/patient_model.dart';
 import 'package:hackathon_app/pages/search_for_doctors.dart';
 import 'package:hackathon_app/pages/views/appointments_view.dart';
 import 'package:hackathon_app/pages/views/home_screen_view.dart';
 import 'package:hackathon_app/pages/views/profile_view.dart';
+import 'package:hackathon_app/providers/patient_providers.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
    const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   int selectedPage = 0;
 
   @override
@@ -51,10 +56,44 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-      floatingActionButton: selectedPage == 1 ? FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {},
-      ) : null,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        //emergency contact button
+        child: Icon(Icons.add_call),
+        onPressed: () {
+          showDialog(context: context, builder: (context) {
+            final TextEditingController t1 = TextEditingController();
+            return AlertDialog(
+              title: Text('Log an emergency'),
+              actions: [
+                //optional field to explain what is wrong
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Explain what is wrong',
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: t1,
+                ),
+                TextButton(
+                  onPressed: () {
+                    ref.read(patientProvider(FirebaseAuth.instance.currentUser!.uid)).whenData((value) {
+                      FirebaseFirestore.instance.collection('emergency').add({
+                        'time': DateTime.now(),
+                        'uid': value!.uid,
+                        'contact': value!.emergencyContact ?? '',
+                        'message': t1.text
+                      });
+                      Navigator.of(context).pop();
+                    });
+
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
+            );
+          });
+        }
+      )
     );
   }
 }
