@@ -19,7 +19,7 @@ class Appointment {
       patientuid: map['patientuid'] ?? '',
       doctoruid: map['doctoruid'] ?? '',
       date: map['date'].toDate(),
-      status: map['isAccepted'] ?? false,
+      status: map['isAccepted'] ?? '',
       fcmToken: map['fcmToken'],
       time: map['time']?.toDate(),
       appointmentType: map['appointmentType'] ?? '',

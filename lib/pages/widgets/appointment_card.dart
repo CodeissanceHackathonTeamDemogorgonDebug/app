@@ -15,6 +15,7 @@ class AppointmentCard extends ConsumerWidget {
       address: '',
       experienceYears: '',
     );
+    print(doctor.toMap());
     return SizedBox(
       width: double.infinity,
       child: Card(

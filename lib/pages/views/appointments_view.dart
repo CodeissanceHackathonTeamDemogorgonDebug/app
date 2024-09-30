@@ -31,8 +31,14 @@ class AppointmentsView extends ConsumerWidget {
             if (appointments.isEmpty)
               const Text('No appointments yet')
             else
-              Column(
-                children: appointments.map((appointment) => AppointmentCard(appointment: appointment)).toList(),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: appointments.length,
+                itemBuilder: (context, index) {
+                  final appointment = appointments[index];
+                  return AppointmentCard(appointment: appointment);
+                },
               ),
             const SizedBox(height: 20),
           ],

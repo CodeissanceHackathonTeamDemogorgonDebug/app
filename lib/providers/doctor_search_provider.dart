@@ -74,4 +74,15 @@ class Doctor {
       experienceYears: map['experienceYears'] ?? 0,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'name': name,
+      // 'specialties': specialties,
+      'address': address,
+      'profilePic': profilePic,
+      'experienceYears': experienceYears,
+    };
+  }
 }

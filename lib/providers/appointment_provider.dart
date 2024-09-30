@@ -14,6 +14,8 @@ class AppointmentDataSource {
   Future<List<Appointment>> getAppointments() async {
     final user = FirebaseAuth.instance.currentUser!.uid;
     final snapshot = await _firestore.collection('AppointmentRequest').where('patientuid', isEqualTo: user).get();
+    print(snapshot.docs.length);
+    print(snapshot.docs.map((e) => e.data()));
     return snapshot.docs.map((e) => Appointment.fromMap(e.data())).toList();
   }
 }
