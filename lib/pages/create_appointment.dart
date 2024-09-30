@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hackathon_app/main.dart';
 import 'package:hackathon_app/models/appointment_model.dart';
 import 'package:hackathon_app/providers/appointment_provider.dart';
 import 'package:hackathon_app/providers/doctor_search_provider.dart';
@@ -18,7 +19,7 @@ class CreateAppointment extends ConsumerWidget {
   }
 
   void submitForm(WidgetRef ref){
-    Appointment ap1 = Appointment(patientuid: FirebaseAuth.instance.currentUser!.uid, doctoruid: doctor.uid, date: date, isAccepted: false, appointmentType: appType);
+    Appointment ap1 = Appointment(patientuid: FirebaseAuth.instance.currentUser!.uid, doctoruid: doctor.uid, date: date, isAccepted: false, appointmentType: appType, fcmToken: fcmToken);
     ref.read(requestAppointmentProvider(ap1));
   }
   @override
