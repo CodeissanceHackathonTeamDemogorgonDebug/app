@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_app/pages/search_for_doctors.dart';
 import 'package:hackathon_app/pages/views/appointments_view.dart';
 import 'package:hackathon_app/pages/views/home_screen_view.dart';
 import 'package:hackathon_app/pages/views/profile_view.dart';
@@ -19,6 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title:  Text(getAppBarTitle(selectedPage)),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SearchForDoctors()));
+            },
+          ),
+        ],
       ),
       body: SizedBox(
           width: double.infinity,
@@ -42,6 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
+      floatingActionButton: selectedPage == 1 ? FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {},
+      ) : null,
     );
   }
 }
