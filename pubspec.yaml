@@ -38,7 +38,8 @@ dependencies:
   firebase_storage:
   dartz:
   freezed_annotation:
-  sign_in_button: 
+  sign_in_button:
+  date_picker_plus:
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -23,10 +23,11 @@ class SearchForDoctors extends StatelessWidget {
                 decoration: const InputDecoration(
                   hintText: 'Search for doctors',
                   prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(),
                 ),
               ),
               const Divider(),
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
               DoctorCard(),
               DoctorCard(),
               DoctorCard(),
